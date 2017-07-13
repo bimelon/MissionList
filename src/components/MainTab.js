@@ -11,7 +11,8 @@ import {TabNavigator} from 'react-navigation'
 import MissionItem from './missionItem'
 
 import { connect } from 'react-redux';
-import {clearMission} from '../action/missions';
+import {clearMission,creatMission,readMission,addMission} from '../action/missions';
+
 
 
 class MainTab extends Component {
@@ -30,7 +31,8 @@ class MainTab extends Component {
 
   render() {
     const {missions}=this.props;
-    const filled=missions.filter((data)=>{return (data.importance==0)});
+    //const filled=missions.filter((data)=>{return (data.importance==0)});
+    const filled=missions;
     return (
       <View>
         <Modal
@@ -62,12 +64,27 @@ class MainTab extends Component {
         }}>
           <Text>Show Modal</Text>
         </TouchableHighlight>
+        <TouchableHighlight onPress={() => {
+          this.props.creatMission()
+        }}>
+          <Text>creatMission</Text>
+        </TouchableHighlight><TouchableHighlight onPress={() => {
+          this.props.readMission()
+        }}>
+          <Text>readMission</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={() => {
+          this.props.addMission()
+        }}>
+          <Text>addMission</Text>
+        </TouchableHighlight>
       </View>
     );
   }
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     missions: state.missionsReducer.missions,
   };
@@ -75,6 +92,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    creatMission: () => dispatch(creatMission()),
+    readMission: () => dispatch(readMission()),
+    addMission: () => dispatch(addMission()),
     clearMission: (key) => dispatch(clearMission(key)),
   };
 }

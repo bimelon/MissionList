@@ -20,7 +20,8 @@ class SubTab extends Component {
 
   render() {
     const {missions}=this.props;
-    const filled=missions.filter((data)=>{return (data.importance==1)});
+    const filled=missions;
+    //const filled=missions.filter((data)=>{return (data.importance==1)});
     return (
       <View>
         <FlatList
